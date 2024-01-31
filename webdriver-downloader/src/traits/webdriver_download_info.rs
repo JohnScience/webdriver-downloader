@@ -69,6 +69,16 @@ where
         let tempdir = TempDir::new()?;
 
         let temp_driver_path = self.download_in_tempdir(version_url.url, &tempdir).await?;
+        // In theory, this should be unnecessary because setting persmissions should require presence of the file.
+        // However, doing this to be safe.
+        if temp_driver_path.exists() {
+            println!("Downloaded the driver to: {}.", temp_driver_path.display());
+        } else {
+            println!(
+                "Failed to download the driver to: {}.",
+                temp_driver_path.display()
+            );
+        }
 
         self.install_driver(&temp_driver_path)?;
 
