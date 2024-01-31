@@ -47,6 +47,7 @@ pub trait WebdriverVerificationInfo {
             .stderr(std::process::Stdio::piped())
             .kill_on_drop(true)
             .spawn()?;
+        println!("Unreachable code");
 
         tokio::time::sleep(WEBDRIVER_WAIT_DURATION).await;
 
