@@ -36,9 +36,10 @@ pub trait WebdriverVerificationInfo {
     ) -> Result<(), VerificationError> {
         let port = get_random_available_port();
         if !driver_path.as_ref().exists() {
-            let bt = std::backtrace::Backtrace::force_capture();
             println!("Driver path does not exist: {:?}", driver_path.as_ref());
-            println!("{:?}", bt);
+            println!("{}", std::backtrace::Backtrace::force_capture());
+        } else {
+            println!("Driver path exists: {:?}", driver_path.as_ref());
         }
         let mut child = tokio::process::Command::new(OsStr::new(driver_path.as_ref()))
             .arg(&format!("--port={}", port))
