@@ -65,6 +65,8 @@ pub trait WebdriverInstallationInfo {
 
         #[cfg(unix)]
         add_execute_permission(&driver_path)?;
+        #[cfg(not(unix))]
+        println!("Skipping add_execute_permission for non-unix systems.");
 
         Ok(driver_path)
     }
